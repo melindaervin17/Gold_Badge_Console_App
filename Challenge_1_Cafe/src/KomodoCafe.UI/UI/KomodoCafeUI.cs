@@ -49,15 +49,16 @@ using System.Threading.Tasks;
                 switch(userInput)
                 {
                     case "1":
-                        AddItemToMenu;
+                        AddItemToMenu();
                         break;
                     case "2":
-                        ViewAllItems;
+                        ViewAllItems();
                         break;
                     case "3":
-                        DeleteItem;
+                        DeleteItem();
                         break;
                     case "X":
+                    case"x":
                         isRunning = CloseApplication();
                         break;
                     default:
@@ -67,26 +68,38 @@ using System.Threading.Tasks;
             }
         }
 
-        public void AddItemToMenu()
+        private void AddItemToMenu()
         {
             Console.Clear();
 
-            Menu newMenu = new Menu();
+            var newMenu = new Menu();
+            // Menu item = new Menu();
 
             System.Console.WriteLine("Please enter a combo meal number: ");
-            item.MealNum = int.Parse(Console.ReadLine());
+            newMenu.MealNum = int.Parse(Console.ReadLine());
 
             System.Console.WriteLine("Please enter a meal name: ");
-            item.Name = Console.ReadLine();
+            newMenu.Name = Console.ReadLine();
 
             System.Console.WriteLine("Please enter a meal description: ");
-            item.Description = Console.ReadLine();
+            newMenu.Description = Console.ReadLine();
 
             System.Console.WriteLine("Please enter a list of ingredients: ");
-            item.Ingredients = Console.ReadLine();
+            newMenu.Ingredients = Console.ReadLine();
 
             System.Console.WriteLine("Please enter a price: ");
-            item.Price = double.Parse(Console.ReadLine());
+            newMenu.Price = double.Parse(Console.ReadLine());
+
+            bool isSuccessful = _mRepo.AddItemToMenu(newMenu);
+
+            if(isSuccessful)
+            {
+                System.Console.WriteLine($"{newMenu.Name} was added to the menu.");
+            }
+            else
+            {
+                System.Console.WriteLine("Unable to add item to the menu.");
+            }
         }
 
         public void ViewAllItems()
@@ -97,8 +110,12 @@ using System.Threading.Tasks;
             {
                 foreach(Menu m in itemsInMenu)
                 {
-                    DisplayMenuItems(item);
+                    DisplayMenuItems(m);
                 }
+            }
+            else
+            {
+                System.Console.WriteLine("No items exist");
             }
 
             PressAnyKey();
@@ -107,11 +124,11 @@ using System.Threading.Tasks;
         private void DisplayMenuItems(Menu item)
         {
             System.Console.WriteLine
-            ($"Number: {m.MealNum}\n" 
-            + $"Name: {m.Name}\n"
-            + $"Description: {m.Description}\n"
-            + $"Ingredients: {m.Ingredients}\n"
-            + $"Price: {m.Price}\n"
+            ($"Number: {item.MealNum}\n" 
+            + $"Name: {item.Name}\n"
+            + $"Description: {item.Description}\n"
+            + $"Ingredients: {item.Ingredients}\n"
+            + $"Price: {item.Price}\n"
             );
         }
 
@@ -119,25 +136,59 @@ using System.Threading.Tasks;
         {
             Console.Clear();
 
-            ViewAllItems();
-            try
+            // ViewAllItems();
+            // try
+            // {
+            //     System.Console.WriteLine("Please select the item you wish to remove: ");
+            //     int selectedItem = int.Parse(Console.ReadLine());
+            //     bool isRemoved = _mRepo.DeleteMenuItems(selectedItem);
+            //     if(isRemoved)
+            //     {
+            //         System.Console.WriteLine("Menu item was removed");
+            //     }
+            //     else
+            //     {
+            //         System.Console.WriteLine("Unable to remove selected item");
+            //     }
+            // }
+            // catch
+            // {
+            //     System.Console.WriteLine("Invalid selection");
+            // }
+
+            List<Menu> itemMenu = _mRepo.GetAllItems();
+
+            if(itemMenu.Count() > 0)
             {
                 System.Console.WriteLine("Please select the item you wish to remove: ");
-                int selectedMealNum = int.Parse(Console.ReadLine());
-                int selectedItem = _mRepo.GetItemByNum(mealNum);
-                bool isRemoved = selectedItem.Menu.Remove(item);
-                if(isRemoved)
+
+                int count = 0;
+
+                foreach (var item in itemMenu)
                 {
-                    System.Console.WriteLine("Menu item was removed");
+                    count++;
+                    System.Console.WriteLine($"{count}. {item.Name}");
+                }
+
+                int selectedItem = int.Parse(Console.ReadLine());
+                int selectedMenu = selectedItem -1;
+
+                if(selectedMenu >= 0 && selectedMenu < itemMenu.Count)
+                {
+                    Menu desiredItem = itemMenu[selectedMenu];
+                    if(_mRepo.DeleteMenuItems(desiredItem))
+                    {
+                        System.Console.WriteLine($"{desiredItem.MealNum} was removed.");
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Unable to remove the selected item.");
+                    }
                 }
                 else
                 {
-                    System.Console.WriteLine("Unable to remove selected item");
+                    System.Console.WriteLine("Content with selected number not found.");
                 }
-            }
-            catch
-            {
-                System.Console.WriteLine("Invalid selection");
             }
 
             PressAnyKey();

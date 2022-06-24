@@ -7,16 +7,28 @@ using System.Threading.Tasks;
     {
         private readonly List<Menu> _menuItems = new List<Menu>();
 
+        private int _count;
         public bool AddItemToMenu(Menu item)
         {
-            int count = _menuItems.Count();
-            _menuItems.Add(item);
-            bool wasAdded = (_menuItems.Count() > count) ? true : false;
+            // int startCount = _menuItems.Count();
+            // _menuItems.Add(item);
+            // bool wasAdded = (_menuItems.Count() > startCount) ? true : false;
 
-            return wasAdded;
+            // return wasAdded;
+            if(item != null)
+            {
+                _count++;
+                item.MealNum = _count;
+                _menuItems.Add(item);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public List<Menu> ViewMenuItems()
+        public List<Menu> GetAllItems()
         {
             return _menuItems;
         }

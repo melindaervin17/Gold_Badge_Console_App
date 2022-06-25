@@ -5,15 +5,22 @@ using System.Threading.Tasks;
 
     public class Badges
     {
-        public Badge(){}
+        public Badges(){}
 
-        public Badge(int badgeID, List<Door> doors)
+        // public Badges(int badge)
+        // {
+        //     Badge = badge;
+        // }
+
+        public Badges(int id, string doors)
         {
-            BadgeID = badgeID;
+            ID = id;
             Doors = doors;
         }
+        
+        // public int Badge { get; set; }
 
-        public int BadgeID { get; set; }
+        public int ID { get; set; }
 
-        public List<Door> Doors { get; set; } 
+        public string Doors { get; set; } 
     }

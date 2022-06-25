@@ -1,34 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
 
-    public class DoorList
-    {
-        private readonly List<Doors> _doorRepo = new List<Doors>();
+//     public class DoorList
+//     {
+//         private readonly List<Doors> _listRepo = new List<Doors>();
 
-        public bool UpdateBadgeAccess(int badgeID, BadgeDictionary newBadgeData)
-        {
-            var oldBadgeData = GetBadgeByID(badgeID);
+        // public bool DeleteDoor(int id)
+        // {
+        //     System.Console.WriteLine(id);
+        //     Badges doorsToDelete = _listRepo.FirstOrDefault(b => b.BadgeID == badgeID);
+        //     return _listRepo.Remove(doorsToDelete);
+        // }
 
-            if(oldBadgeData != null)
-            {
-                oldBadgeData.Doors = newBadgeData.Doors;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+//         //? add ability to delete to update method
 
-        public bool DeleteBadgeAccess()
-        {
+        // public bool DeleteAllDoors()
+        // {
+        //     if(_listRepo.Count > 0)
+        //     {
+        //         _listRepo.Clear();
+        //         return true;
+        //     }
 
-        }
-
-        public bool ViewAllBadges()
-        {
-            
-        }
-    }
+        //     return false;
+        // }
+//     }

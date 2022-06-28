@@ -73,4 +73,20 @@ using System.Threading.Tasks;
                 return false;
             }
         }
+
+        public bool Email()
+        {
+            if(customer.Status == current)
+            {
+                cutomer.Email = System.Console.WriteLine("Thank you for your work with us. We appreciate your loyalty. Here's a coupon.");
+            }
+            else if(customer.Status == past)
+            {
+                customer.Email = System.Console.WriteLine("It's been a long time since we've heard from you, we want you back.");
+            }
+            else if(customer.Status == potential)
+            {
+                customer.Email = System.Console.WriteLine("We currently have the lowest rates on Helicopter Insurance!");
+            }
+        }
     }

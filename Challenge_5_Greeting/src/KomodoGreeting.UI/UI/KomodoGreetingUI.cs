@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 
         private void SeedData()
         {
-            Customer dee = new Customer("Dee", "Winters");
-            Customer jasmine = new Customer("Jasmine", "Summers");
-            Customer luke = new Customer("Luke", "Johnson");
-            Customer nicole = new Customer("Nicole", "Fears");
-            Customer randy = new Customer("Randy", "Newton");
-            Customer alonna = new Customer("Alonna", "Bryers");
+            Customer dee = new Customer("Dee", "Winters", current);
+            Customer jasmine = new Customer("Jasmine", "Summers", current);
+            Customer luke = new Customer("Luke", "Johnson", past);
+            Customer nicole = new Customer("Nicole", "Fears", past);
+            Customer randy = new Customer("Randy", "Newton", potential);
+            Customer alonna = new Customer("Alonna", "Bryers", potential);
 
             _cRepo.AddCustomerToDatabase(dee);
             _cRepo.AddCustomerToDatabase(jasmine);
@@ -28,6 +28,12 @@ using System.Threading.Tasks;
             _cRepo.AddCustomerToDatabase(nicole);
             _cRepo.AddCustomerToDatabase(randy);
             _cRepo.AddCustomerToDatabase(alonna);
+
+            _cRepo.Sort((x, y) => string.Compare(x.FirstName, y.FirstName));
+            foreach (Customer c in _cRepo)
+            {
+                System.Console.WriteLine(c.FirstName);
+            }
         }
 
         public void RunApplication()

@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 
         private void SeedData()
         {
-            Customer dee = new Customer("Dee", "Winters", current);
-            Customer jasmine = new Customer("Jasmine", "Summers", current);
-            Customer luke = new Customer("Luke", "Johnson", past);
-            Customer nicole = new Customer("Nicole", "Fears", past);
-            Customer randy = new Customer("Randy", "Newton", potential);
-            Customer alonna = new Customer("Alonna", "Bryers", potential);
+            Customer dee = new Customer("Dee", "Winters", CustomerStatus.current);
+            Customer jasmine = new Customer("Jasmine", "Summers", CustomerStatus.current);
+            Customer luke = new Customer("Luke", "Johnson", CustomerStatus.past);
+            Customer nicole = new Customer("Nicole", "Fears", CustomerStatus.past);
+            Customer randy = new Customer("Randy", "Newton", CustomerStatus.potential);
+            Customer alonna = new Customer("Alonna", "Bryers", CustomerStatus.potential);
 
             _cRepo.AddCustomerToDatabase(dee);
             _cRepo.AddCustomerToDatabase(jasmine);
@@ -156,11 +156,15 @@ using System.Threading.Tasks;
         {
             Console.Clear();
             var customers = _cRepo.GetAllCustomers();
+            foreach (Customer c in customers)
+            {
+                DisplayCustomerDetails(c);
+            }
             try
             {
                 System.Console.WriteLine("Please enter the customer ID: ");
-                int userSelectedCustomer = int.Parse(Consolr.ReadLine());
-                bool isSuccessful = _cRepo.RemoveCustomer(userSelectedCustomer);
+                int userSelectedCustomer = int.Parse(Console.ReadLine());
+                bool isSuccessful = _cRepo.DeleteCustomerFromDatabase(userSelectedCustomer);
                 if(isSuccessful)
                 {
                     System.Console.WriteLine("The selcted customer has been removed.");
@@ -175,7 +179,7 @@ using System.Threading.Tasks;
                 System.Console.WriteLine("Invalid input.");
             }
 
-            PresAnyKey();
+            PressAnyKey();
         }
 
         private bool CloseApplication()

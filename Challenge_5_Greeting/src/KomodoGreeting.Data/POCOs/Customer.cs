@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
     public class Customer
     {
-        public void Customer(){}
+        public Customer(){}
 
-        public void Customer(string firstName, string lastName, CustomerStatus status, string email)
+        public Customer(string firstName, string lastName, CustomerStatus status, string email)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -15,6 +15,7 @@ using System.Threading.Tasks;
             Email = email;
         }
 
+        public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public CustomerStatus Status { get; set; }

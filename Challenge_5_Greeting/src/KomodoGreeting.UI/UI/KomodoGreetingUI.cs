@@ -44,7 +44,8 @@ using System.Threading.Tasks;
             while(isRunning)
             {
                 Console.Clear();
-                System.Console.WriteLine("Please select from the options below: \n"
+                System.Console.WriteLine("=== Welcome to the Customer Database ===\n"
+                + "Please select from the options below: \n"
                 + "1. Add a Customer\n"
                 + "2. View all Customers\n"
                 + "3. Update Customer Details\n"

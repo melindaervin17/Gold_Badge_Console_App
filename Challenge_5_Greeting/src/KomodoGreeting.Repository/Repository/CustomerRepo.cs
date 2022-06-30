@@ -75,7 +75,7 @@ using System.Threading.Tasks;
             }
         }
 
-        public bool Email()
+        public bool EmailResponse()
         {
             foreach (Customer c in _customerDatabase)
             {

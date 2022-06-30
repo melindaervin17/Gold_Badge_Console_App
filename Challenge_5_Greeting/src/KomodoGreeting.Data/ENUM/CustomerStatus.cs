@@ -1,6 +1,6 @@
     public enum CustomerStatus
     {
-        potential,
+        potential = 1,
         current,
         past
     }

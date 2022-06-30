@@ -136,60 +136,60 @@ using System.Threading.Tasks;
         {
             Console.Clear();
 
-            // ViewAllItems();
-            // try
-            // {
-            //     System.Console.WriteLine("Please select the item you wish to remove: ");
-            //     int selectedItem = int.Parse(Console.ReadLine());
-            //     bool isRemoved = _mRepo.DeleteMenuItems(selectedItem);
-            //     if(isRemoved)
-            //     {
-            //         System.Console.WriteLine("Menu item was removed");
-            //     }
-            //     else
-            //     {
-            //         System.Console.WriteLine("Unable to remove selected item");
-            //     }
-            // }
-            // catch
-            // {
-            //     System.Console.WriteLine("Invalid selection");
-            // }
-
-            List<Menu> itemMenu = _mRepo.GetAllItems();
-
-            if(itemMenu.Count() > 0)
+            ViewAllItems();
+            try
             {
-                System.Console.WriteLine("Please select the item you wish to remove: ");
-
-                int count = 0;
-
-                foreach (var item in itemMenu)
-                {
-                    count++;
-                    System.Console.WriteLine($"{count}. {item.Name}");
-                }
-
+                System.Console.WriteLine("Please enter the number of the item you wish to remove: ");
                 int selectedItem = int.Parse(Console.ReadLine());
-                int selectedMenu = selectedItem -1;
-
-                if(selectedMenu >= 0 && selectedMenu < itemMenu.Count)
+                bool isRemoved = _mRepo.DeleteMenuItems(selectedItem);
+                if(isRemoved)
                 {
-                    Menu desiredItem = itemMenu[selectedMenu];
-                    if(_mRepo.DeleteMenuItems(desiredItem))
-                    {
-                        System.Console.WriteLine($"{desiredItem.MealNum} was removed.");
-                    }
-                    else
-                    {
-                        System.Console.WriteLine("Unable to remove the selected item.");
-                    }
+                    System.Console.WriteLine("Menu item was removed");
                 }
                 else
                 {
-                    System.Console.WriteLine("Content with selected number not found.");
+                    System.Console.WriteLine("Unable to remove selected item");
                 }
             }
+            catch
+            {
+                System.Console.WriteLine("Invalid selection");
+            }
+
+            // List<Menu> itemMenu = _mRepo.GetAllItems();
+
+            // if(itemMenu.Count() > 0)
+            // {
+            //     System.Console.WriteLine("Please select the item you wish to remove: ");
+
+            //     int count = 0;
+
+            //     foreach (var item in itemMenu)
+            //     {
+            //         count++;
+            //         System.Console.WriteLine($"{count}. {item.Name}");
+            //     }
+
+            //     int selectedItem = int.Parse(Console.ReadLine());
+            //     int selectedMenu = selectedItem -1;
+
+            //     if(selectedMenu >= 0 && selectedMenu < itemMenu.Count)
+            //     {
+            //         Menu desiredItem = itemMenu[selectedMenu];
+            //         if(_mRepo.DeleteMenuItems(desiredItem))
+            //         {
+            //             System.Console.WriteLine($"{desiredItem.MealNum} was removed.");
+            //         }
+            //         else
+            //         {
+            //             System.Console.WriteLine("Unable to remove the selected item.");
+            //         }
+            //     }
+            //     else
+            //     {
+            //         System.Console.WriteLine("Content with selected number not found.");
+            //     }
+            // }
 
             PressAnyKey();
         }

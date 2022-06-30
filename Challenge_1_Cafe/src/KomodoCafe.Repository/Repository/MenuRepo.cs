@@ -10,11 +10,6 @@ using System.Threading.Tasks;
         private int _count;
         public bool AddItemToMenu(Menu item)
         {
-            // int startCount = _menuItems.Count();
-            // _menuItems.Add(item);
-            // bool wasAdded = (_menuItems.Count() > startCount) ? true : false;
-
-            // return wasAdded;
             if(item != null)
             {
                 _count++;
@@ -33,9 +28,29 @@ using System.Threading.Tasks;
             return _menuItems;
         }
 
-        public bool DeleteMenuItems(Menu item)
+        public Menu GetItemByNum(int mealNum)
         {
-            bool deleteItem = _menuItems.Remove(item);
-            return deleteItem;
+            foreach (Menu m in _menuItems)
+            {
+                if (m.MealNum == mealNum)
+                {
+                    return m;
+                }
+            }
+            return null;
+        }
+
+        public bool DeleteMenuItems(int mealNum)
+        {
+            var item = GetItemByNum(mealNum);
+            if(item != null)
+            {
+                _menuItems.Remove(item);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }

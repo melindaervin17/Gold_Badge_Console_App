@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
         private readonly List<Door> _dRepo = new List<Door>();
 
-        // private readonly DoorList _dRepo = new DoorList();
 
         public void Run()
         {
@@ -87,25 +86,6 @@ using System.Threading.Tasks;
             {
                 System.Console.WriteLine("There are no badges in the list");
             }
-
-            // Dictionary<int, Badges> badges = _bdRepo.GetBadge();
-            // foreach (KeyValuePair<int, Badges> b in badges)
-            // {
-            //     DisplayBadgeInfo(b.Value);
-            // }
-
-            // if(ListOfBadges.Count > 0)
-            // {
-            //     // Dictionary<int, BadgeDictionary> badges = _bdRepo.GetAllBadges();
-            //     foreach (Badges b in ListOfBadges)
-            //     {
-            //         DisplayBadgeInfo(b);
-            //     }
-            // }
-            // else
-            // {
-            //     System.Console.WriteLine("No badges exist.");
-            // }
 
             PressAnyKey();
         }

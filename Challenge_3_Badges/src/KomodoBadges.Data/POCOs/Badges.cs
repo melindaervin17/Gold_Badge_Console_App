@@ -7,20 +7,21 @@ using System.Threading.Tasks;
     {
         public Badges(){}
 
-        // public Badges(int badge)
+        // public Badges(int id)
         // {
-        //     Badge = badge;
+        //     ID = id;
         // }
 
-        public Badges(int id, string doors)
+        public Badges(/*int id,*/ Door doors)
         {
-            ID = id;
+            // ID = id;
             Doors = doors;
+
         }
-        
-        // public int Badge { get; set; }
 
         public int ID { get; set; }
 
-        public string Doors { get; set; } 
+        public Door Doors { get; set; } 
+
+        public int DoorID { get; set; }
     }

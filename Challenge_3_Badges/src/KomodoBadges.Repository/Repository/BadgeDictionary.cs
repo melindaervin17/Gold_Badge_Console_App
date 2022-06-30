@@ -5,41 +5,85 @@ using System.Threading.Tasks;
 
     public class BadgeDictionary
     {
-        private readonly Dictionary<id, Doors> _dictionaryRepo = new Dictionary<id, Doors>();
+        private readonly Dictionary<int, Badges> _dictionaryRepo = new Dictionary<int, Badges>();
 
-        private int _count = 0;
+        private readonly List<Badges> _listRepo = new List<Badges>();
+
+        private readonly List<Door> _doorList = new List<Door>();
+
+        private int _count;
 
         public bool AddBadgeToDictionary(Badges badge)
         {
             if(badge is null)
             {
-                return false;
-            }
-
             _count++;
             badge.ID = _count;
             _dictionaryRepo.Add(badge.ID, badge);
 
             return true;
-        }
-
-                public bool UpdateBadgeInfo(int ID, BadgeDictionary newBadgeInfo)
-        {
-            var oldBadgeInfo = GetBadgeByID(id);
-
-            if(oldBadgeInfo != null)
-            {
-                oldBadgeInfo.Doors = newBadgeInfo.Doors;
-                return true;
             }
             else
             {
-                return false;
+            return false;
             }
         }
 
-        public Dictionary<id, Doors> ListAllBadges()
+        public Dictionary<int, Badges> GetBadge()
         {
             return _dictionaryRepo;
+        }
+
+        public List<Badges> GetAllBadges()
+        {
+            return _listRepo;
+        }
+        public Badges GetBadgeByKey(int keyInput)
+        {
+            foreach(KeyValuePair<int, Badges> badge in _dictionaryRepo)
+            {
+                if(badge.Key == keyInput)
+                {
+                    return badge.Value;
+                }
+            }
+            return null;
+        }
+
+        public bool UpdateBadgeInfo(int keyInput, Badges newBadgeInfo)
+        {
+            var oldBadgeInfo = GetBadgeByKey(keyInput);
+
+            if(oldBadgeInfo is null)
+            {
+                return false;
+            }
+                oldBadgeInfo.Doors = newBadgeInfo.Doors;
+                return true;
+            // else
+            // {
+            //     return false;
+            // }
+        }
+
+        public Dictionary<int, Badges> ListAllBadges()
+        {
+            return _dictionaryRepo;
+        }
+
+        public List<Door> GetDoor()
+        {
+            return _doorList;
+        }
+
+        public bool AddDoorAccess(Door doors)
+        {
+            if(doors != null)
+            {
+                _doorList.Add(doors);
+                return true;
+            }
+
+            return false;
         }
     }

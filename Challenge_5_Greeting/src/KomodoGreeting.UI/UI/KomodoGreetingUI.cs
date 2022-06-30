@@ -29,8 +29,9 @@ using System.Threading.Tasks;
             _cRepo.AddCustomerToDatabase(randy);
             _cRepo.AddCustomerToDatabase(alonna);
 
-            _cRepo.Sort((x, y) => string.Compare(x.FirstName, y.FirstName));
-            foreach (Customer c in _cRepo)
+            List<Customer> customerDB = _cRepo.GetAllCustomers();
+            customerDB.Sort((x, y) => string.Compare(x.FirstName, y.FirstName));
+            foreach (Customer c in customerDB)
             {
                 System.Console.WriteLine(c.FirstName);
             }
@@ -48,9 +49,9 @@ using System.Threading.Tasks;
                 + "2. View all Customers\n"
                 + "3. Update Customer Details\n"
                 + "4. Delete a Customer\n"
-                + "5. Close Application\n"
+                + "X. Close Application\n"
                 );
-                string userInput = Console.Readline();
+                string userInput = Console.ReadLine();
                 switch(userInput)
                 {
                     case "1":
@@ -65,7 +66,8 @@ using System.Threading.Tasks;
                     case "4":
                         DeleteCustomer();
                         break;
-                    case "5":
+                    case "X":
+                    case "x":
                         isRunning = CloseApplication();
                         break;
                     default:
@@ -87,6 +89,30 @@ using System.Threading.Tasks;
             newCustomer.FirstName = Console.ReadLine();
             System.Console.WriteLine("Please enter the Customer's last name: ");
             newCustomer.LastName = Console.ReadLine();
+            System.Console.WriteLine("Please enter the Customer's status: \n"
+                + "1. Potential\n"
+                + "2. Current\n"
+                + "3. Past\n"   
+                );
+                string statusInput = Console.ReadLine().ToLower();             
+                switch(statusInput)
+                {
+                    case "1":
+                    case "potential":
+                        newCustomer.Status = CustomerStatus.potential;
+                        break;
+                    case "2":
+                    case "current":
+                        newCustomer.Status = CustomerStatus.current;
+                        break;
+                    case "3":
+                    case "past":
+                        newCustomer.Status = CustomerStatus.past;
+                        break;
+                    default:
+                        System.Console.WriteLine("Invalid selection."); 
+                        break;  
+                }
 
             bool isSuccessful = _cRepo.AddCustomerToDatabase(newCustomer);
             if(isSuccessful)
@@ -122,7 +148,7 @@ using System.Threading.Tasks;
 
         private void DisplayCustomerDetails(Customer customer)
         {
-            System.Console.WriteLine($"\tName: {customer.FirstName} {customer.LastName} \n \tStatus: {customer.Status} \n \tEmail: {customer.Email} \n"
+            System.Console.WriteLine($"\tID: {customer.ID} \n \tName: {customer.FirstName} {customer.LastName} \n \tStatus: {customer.Status} \n \tEmail: {customer.Email} \n"
             );
         }
 
@@ -131,8 +157,8 @@ using System.Threading.Tasks;
             Console.Clear();
 
             System.Console.WriteLine("Please enter a customer ID: ");
-            int userInput = int.Parse(Console.ReadLine());
-            var selectedCustomer = _cRepo.GetCustomerByID(userInput);
+            int userInp = int.Parse(Console.ReadLine());
+            var selectedCustomer = _cRepo.GetCustomerByID(userInp);
             if(selectedCustomer != null)
             {
                 Console.Clear();
@@ -141,8 +167,30 @@ using System.Threading.Tasks;
                 newCustomer.FirstName = Console.ReadLine();
                 System.Console.WriteLine("Please enter the customer's last name: ");
                 newCustomer.LastName = Console.ReadLine();
-                System.Console.WriteLine("Please enter the customer's new status: ");
-                newCustomer.Status = Console.ReadLine();
+                System.Console.WriteLine("Please enter the customer's new status: \n"
+                + "1. Potential\n"
+                + "2. Current\n"
+                + "3. Past\n"   
+                );
+                string statusInput = Console.ReadLine().ToLower();             
+                switch(statusInput)
+                {
+                    case "1":
+                    case "potential":
+                        newCustomer.Status = CustomerStatus.potential;
+                        break;
+                    case "2":
+                    case "current":
+                        newCustomer.Status = CustomerStatus.current;
+                        break;
+                    case "3":
+                    case "past":
+                        newCustomer.Status = CustomerStatus.past;
+                        break;
+                    default:
+                        System.Console.WriteLine("Invalid selection."); 
+                        break;  
+                }
             }
             else
             {

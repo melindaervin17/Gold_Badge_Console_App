@@ -37,7 +37,7 @@ using System.Threading.Tasks;
             bool isRunning = true;
             while(isRunning)
             {
-                Console.Clear();
+                // Console.Clear();
 
                 System.Console.WriteLine("=== Employee Badge Directory ===\n"
                 +"Hello, please choose from the options below: \n"
@@ -61,6 +61,7 @@ using System.Threading.Tasks;
                         UpdateBadgeInfo();
                         break;
                     case "X":
+                    case "x":
                         isRunning = CloseApplication();
                         break;
                     default:
@@ -74,12 +75,12 @@ using System.Threading.Tasks;
         {
             Console.Clear();
 
-            if (_lRepo.GetAllBadges().Count > 0)
+            if (_bdRepo.GetAllBadges().Count > 0)
             {
-                List<Badges> badge = _lRepo.GetAllBadges();
-                foreach(Badges b in badge)
+                Dictionary<int, Badges> badge = _bdRepo.GetAllBadges();
+                foreach(var b in badge)
                 {
-                    DisplayBadgeInfo(b);
+                    DisplayBadgeInfo(b.Value);
                 }    
             } 
             else
@@ -111,12 +112,12 @@ using System.Threading.Tasks;
 
         private Badges BadgeInList(int id)
         {
-            List<Badges> badges = _lRepo.GetAllBadges();
-            foreach(Badges b in badges)
+            Dictionary<int, Badges> badges = _bdRepo.GetAllBadges();
+            foreach(var b in badges)
             {
-                if(b.ID == id)
+                if(b.Value.ID == id)
                 {
-                    return b;
+                    return b.Value;
                 }
             }
             return null;

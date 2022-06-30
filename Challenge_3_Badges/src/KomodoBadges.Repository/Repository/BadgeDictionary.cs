@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
         public bool AddBadgeToDictionary(Badges badge)
         {
-            if(badge is null)
+            if(badge != null)
             {
             _count++;
             badge.ID = _count;
@@ -34,9 +34,9 @@ using System.Threading.Tasks;
             return _dictionaryRepo;
         }
 
-        public List<Badges> GetAllBadges()
+        public Dictionary<int, Badges> GetAllBadges()
         {
-            return _listRepo;
+            return _dictionaryRepo;
         }
         public Badges GetBadgeByKey(int keyInput)
         {
